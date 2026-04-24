@@ -1,0 +1,29 @@
+import tkinter as tk
+from tkinter import messagebox
+
+def calculate_charge():
+    try:
+        minutes = float(entry_minutes.get())
+        rate = rate_var.get()
+
+        charge = minutes * rate
+        messagebox.showinfo("Charge", f"Total charge: ${charge:.2f}")
+    except:
+        messagebox.showerror("Error", "Enter valid minutes.")
+
+root = tk.Tk()
+root.title("Call Charges")
+
+rate_var = tk.DoubleVar(value=0.02)
+
+tk.Radiobutton(root, text="Daytime ($0.02/min)", variable=rate_var, value=0.02).pack(anchor='w')
+tk.Radiobutton(root, text="Evening ($0.12/min)", variable=rate_var, value=0.12).pack(anchor='w')
+tk.Radiobutton(root, text="Off-Peak ($0.05/min)", variable=rate_var, value=0.05).pack(anchor='w')
+
+tk.Label(root, text="Minutes:").pack()
+entry_minutes = tk.Entry(root)
+entry_minutes.pack()
+
+tk.Button(root, text="Calculate Charge", command=calculate_charge).pack()
+
+root.mainloop()
